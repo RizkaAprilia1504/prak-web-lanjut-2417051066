@@ -8,8 +8,8 @@ class ProfileController extends Controller
 {
     public function profile(){
         $data = [
-            'Nama' => 'Kirana Aditya Moza',
-            'NPM' => '2417051057',
+            'Nama' => 'Rizka Aprilia',
+            'NPM' => '2417051066',
             'Kelas' => 'Ilmu Komputer A'
         ];
         return view('profile', $data);

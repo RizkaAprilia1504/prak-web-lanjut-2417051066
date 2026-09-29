@@ -110,7 +110,7 @@
         <div class="card-header">
             <div class="avatar-container">
                 <div class="avatar">
-                    <img src="{{ asset('img/KIRANA ADITYA MOZA.jpg.jpeg') }}" alt="Foto Profil">
+                    <img src="{{ asset('img/rizka.jpeg') }}" alt="Foto Profil">
                 </div>
             </div>
         </div>

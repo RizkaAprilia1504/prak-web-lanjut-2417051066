@@ -50,6 +50,14 @@
 
 <div class="user-list-page">
 
+    {{-- Alert Notifikasi Sukses --}}
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show mb-4" role="alert" style="border-radius: 10px; background-color: #d4edda; border-color: #c3e6cb; color: #155724;">
+            <i class="fa-solid fa-circle-check me-2"></i> {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div class="d-flex align-items-center">
@@ -77,7 +85,51 @@
 
     </div>
 
-    <x-user-table :users="$users" />
+    <!-- Tabel User -->
+    <div class="card border-0 shadow-sm" style="border-radius: 14px; overflow: hidden;">
+        <div class="card-body p-0">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="py-3 px-4">ID</th>
+                        <th class="py-3">Nama</th>
+                        <th class="py-3">NPM</th>
+                        <th class="py-3">Kelas</th>
+                        <th class="py-3 px-4 text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($users as $user)
+                    <tr>
+                        <td class="px-4 text-muted small">{{ $user->id }}</td>
+                        <td class="fw-semibold text-dark">{{ $user->nama }}</td>
+                        <td>{{ $user->nim }}</td>
+                        <td>{{ $user->kelas->nama_kelas ?? '-' }}</td>
+                        <td class="px-4 text-center">
+                            <!-- Tombol Edit -->
+                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-warning text-white me-1 px-3" style="border-radius: 8px; font-weight: 500;">
+                                <i class="fa-solid fa-pen-to-square me-1"></i> Edit
+                            </a>
+                            
+                            <!-- Form Tombol Hapus -->
+                            <form action="{{ route('user.destroy', $user->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger px-3" onclick="return confirm('Yakin ingin menghapus data user ini?')" style="border-radius: 8px; font-weight: 500;">
+                                    <i class="fa-solid fa-trash-can me-1"></i> Hapus
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="5" class="text-center py-4 text-muted">Belum ada data pengguna.</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 </div>
 
